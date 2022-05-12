@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>DomumVillam</title>
+</head>
+<body class="bg-dark">
+<div class="container w-50 ">
+    <div class="row mt-4 ">
+        <div class="container col-md-4">
+            <a class="btn btn-outline-light" href="/information">Information</a>
+        </div>
+        <div class="container col-md-4">
+            <h3 class="text-center text-light">Your Urban Farm Mini</h3>
+        </div>
+        <div class="container col-md-2">
+        </div>
+        <div class="container col-md-2">
+            <img src="/static/img/darklabe.png" width="55" height="50" alt="lorem">
+        </div>
+    </div>
+    {% if data %}
+    <div class="row mt-4 border-top border-light">
+        <div class="container mt-4 col-md-6 ">
+            <h4 class="text-center text-light">Water temperature</h4>
+            {% if water_info["normal"] == False %}
+            <h4 class="text-center text-danger">{{data["water_temp_c"]}} ℃</h4>
+            <div class="alert alert-danger" role="alert">
+                {{water_info["message"]}}
+            </div>
+            {% else %}
+            <h4 class="text-center text-success">{{data["water_temp_c"]}} ℃</h4>
+            {% endif %}
+        </div>
+        <div class="container mt-4 col-md-6">
+            <h4 class="text-center text-light">Air temperature</h4>
+            {% if air_info["normal"] == False %}
+            <h4 class="text-center text-danger">{{data["air_temp_c"]}} ℃</h4>
+            <div class="alert alert-danger" role="alert">
+                {{air_info["message"]}}
+            </div>
+            {% else %}
+            <h4 class="text-center text-success">{{data["air_temp_c"]}} ℃</h4>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="container text-center mt-4 col-md-6">
+            <h4 class="text-center text-light">Led state</h4>
+            {% if data["led_state"] == 0 %}
+            <img src="/static/img/light_off.png" width="100" height="100" alt="lorem">
+            <div><a href="/led/config" type="button " class="btn color-dark btn-light w-50 mt-4 m-2 text-dark">On</a>
+            </div>
+            {% else %}
+            <img src="/static/img/light_on.png" class="text-center" width="50" height="100" alt="lorem">
+            <div><a href="/led/config" type="button"
+                    class="btn color-dark btn-light w-50 mt-4 text-dark m-2">Off</a></div>
+            {% endif %}
+        </div>
+        <div class="container text-center mt-4 col-md-6">
+            <h4 class="text-center text-light">Pump</h4>
+            {% if data["pump_state"] == 1 %}
+            <img src="/static/img/pump.png" width="50" height="100" alt="lorem">
+            <div><a href="/pump/config" type="button " class="btn color-dark btn-light w-50 mt-4 m-2 text-dark">On</a>
+            </div>
+            {% else %}
+            <img src="/static/img/pump.png" class="text-center" width="50" height="100" alt="lorem">
+            <div><a href="/pump/config" type="button"
+                    class="btn btn-light  w-50 mt-4 text-dark m-2">Off</a></div>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <h2 class="text-center text-danger">Esp connection error!</h2>
+    <div id="canvas_container_div">
+        <canvas id="canvas" width="1000" height="1000"></canvas>
+    </div>
+    {% endif %}
+
+
+</div>
+
+
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+<script src="/static/js/script.js"></script>
+</html>
